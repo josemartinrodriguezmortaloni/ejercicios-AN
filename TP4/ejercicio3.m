@@ -1,14 +1,14 @@
 function ejercicio3
-  % Ejercicio 3 - M®¶todo de Euler
+  % Ejercicio 3 - Metodo de Euler
   clear; clc;
 
   % Definir la EDO: du/dt = (t - u)/2
   f = @(t, u) 0.5 * (t - u);
 
-  % Soluci®Æn exacta
+  % Solucion exacta
   u_exact = @(t) 6*exp(-t/2) - 2 + t;
 
-  % Par®¢metros
+  % Parametros
   t0 = 0;
   tf = 10;  % Extendido para ver comportamiento
   u0 = 4;
@@ -24,7 +24,7 @@ function ejercicio3
       t = t0:dt:tf;
       N = length(t);
 
-      % Aplicar m®¶todo de Euler
+      % Aplicar metodo de Euler
       u = zeros(1, N);
       u(1) = u0;
 
@@ -45,28 +45,28 @@ function ejercicio3
           plot(t, u, colors{i}, 'MarkerSize', 4, ...
                'DisplayName', sprintf('dt=%.2f', dt));
           hold on;
-      else  % Para dt=0.01 usar l®™nea continua
+      else  % Para dt=0.01 usar linea continua
           plot(t, u, colors{i}, 'LineWidth', 1.5, ...
                'DisplayName', sprintf('dt=%.2f', dt));
       end
   end
 
-  % Graficar soluci®Æn exacta
+  % Graficar solucion exacta
   t_exact = t0:0.001:tf;
   u_ex = u_exact(t_exact);
   plot(t_exact, u_ex, 'k-', 'LineWidth', 2, ...
        'DisplayName', 'Exacta');
 
-  % Configurar gr®¢fico
+  % Configurar grafico
   xlabel('t');
   ylabel('u(t)');
-  title('Ejercicio 3: Comparaci®Æn de soluciones');
-  legend('Location', 'best');
+  title('Ejercicio 3: Comparaci√≥n de soluciones');
+  legend('Location', 'northeast');
   grid on;
   xlim([0, 10]);
   ylim([2, 9]);
 
-  % Gr®¢fico del error para dt=0.01
+  % Grafico del error para dt=0.01
   figure;
   dt = 0.01;
   t = t0:dt:tf;
@@ -81,14 +81,21 @@ function ejercicio3
   error_func = abs(u_exact(t) - u);
   plot(t, error_func*1000, 'b-', 'LineWidth', 1.5);
   xlabel('t');
-  ylabel('Error (°¡10^{-3})');
-  title('Funci®Æn error con \Delta t = 0.01');
+  ylabel('Error (e10^{-3})');
+  title('Funci√≥n error con \Delta t = 0.01');
   grid on;
   xlim([0, 10]);
 
-  % An®¢lisis del ETL
-  fprintf('\nAn®¢lisis del Error de Truncamiento Local:\n');
+  % Analisis del ETL
+  fprintf('\nAn√°lisis del Error de Truncamiento Local:\n');
   fprintf('Segunda derivada: d^2u/dt^2 = (1-u)/4\n');
   fprintf('En t=0: d^2u/dt^2|? = (1-4)/4 = -0.75\n');
   fprintf('ETL = (dt^2/2) * (-0.75) = -0.375 * dt^2\n');
+  
+  % Mantener las figuras abiertas
+  fprintf('\nPresiona Enter para cerrar las figuras...\n');
+  pause;
 endfunction
+
+% Ejecutar la funci√≥n
+ejercicio3;
